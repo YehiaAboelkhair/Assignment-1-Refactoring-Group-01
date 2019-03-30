@@ -27,7 +27,7 @@ public class TronGame extends Core{
 
     MouseController  mouseController;
 
-    
+    TronCollisionDetector collisionDetector;
     ArrayList<Player> players;
     
     public TronGame(){
@@ -53,11 +53,27 @@ public class TronGame extends Core{
         //players.add(player3);
        
         
-        
+        collisionDetector = new TronCollisionDetector(players);
 
 
     }
     
+    
+        public void init(){
+        
+                super.init();
+		Window w = sm.getFullScreenWindow();
+		w.addKeyListener(keyboardController1);
+                w.addKeyListener(keyboardController2);
+                w.addKeyListener(keyboardController3); 
+		w.addMouseListener(mouseController);
+
+                for (Player player : players) {
+                    player.sm = sm;
+                }
+                
+                
+    }
     
     @Override
     public void draw(Graphics2D g) {
