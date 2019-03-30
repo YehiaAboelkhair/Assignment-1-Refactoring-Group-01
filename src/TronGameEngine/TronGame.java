@@ -77,7 +77,17 @@ public class TronGame extends Core{
     
     @Override
     public void draw(Graphics2D g) {
+        g.setColor(Color.BLACK);
+        g.fillRect(0, 0, sm.getWidth(), sm.getHeight());
         
+        for(Player player : players){
+
+            for (PointPosition pointPosition : player.pointPositions) {
+                g.setColor(player.color);
+                g.fillRect(pointPosition.xPosition, pointPosition.yPosition, 10, 10); 
+            }
+            
+        }
     }
 
     @Override
