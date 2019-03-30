@@ -92,7 +92,23 @@ public class TronGame extends Core{
 
     @Override
     public void update() {
+        for(Player player : players){
+            player.move();
+        }
         
+        
+        if(collisionDetector.isThereObjectCollision()){
+ 
+            System.exit(0);
+        }else{
+          
+            for(Player player : players){
+                player.pointPositions.add(player.p);
+                
+            }
+
+            
+        }
     }
     
 }
