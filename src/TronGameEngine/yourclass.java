@@ -1,3 +1,6 @@
+package TronGameEngine;
+
+import Model.Core;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
