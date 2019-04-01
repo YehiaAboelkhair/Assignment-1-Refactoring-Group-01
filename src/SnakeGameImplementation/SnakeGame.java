@@ -31,7 +31,7 @@ public class SnakeGame extends Core {
     MouseController mouseControllor;
     SnakeCollisionDetector snakecollisionDetector;
     
-    ScreenResolution sr;
+    ScreenResolution resolution;
     
     public SnakeGame(){
     
@@ -42,7 +42,6 @@ public class SnakeGame extends Core {
         mouseControllor = new MouseController(snake);
         
         snakecollisionDetector = new SnakeCollisionDetector(snake, food);
-        sr = new ScreenResolution(sm.getWidth(), sm.getHeight());
     }
     
     public void init(){
@@ -51,8 +50,10 @@ public class SnakeGame extends Core {
 		Window w = sm.getFullScreenWindow();
 		w.addKeyListener(keyboardController1);
 
-                snake.sr = sr;
-                food.sr = sr;
+                resolution = new ScreenResolution(sm.getWidth(), sm.getHeight());
+
+                snake.sr = resolution;
+                food.sr = resolution;
     }
     
     
@@ -61,6 +62,8 @@ public class SnakeGame extends Core {
     @Override
     public void draw(Graphics2D g) {
 
+        super.draw(g);
+        
         for (PointPosition pointPosition : snake.pointPositions) {
                 g.setColor(snake.color);
                 g.fillRect(pointPosition.xPosition, pointPosition.yPosition, 10, 10);

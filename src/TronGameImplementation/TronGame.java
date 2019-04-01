@@ -52,10 +52,9 @@ public class TronGame extends Core{
         players = new ArrayList<>();
         players.add(player1);
         players.add(player2);
-        //players.add(player3);
+        players.add(player3);
        
         collisionDetector = new TronCollisionDetector(players);
-        sr = new ScreenResolution(sm.getWidth(), sm.getHeight());
 
     }
     
@@ -68,7 +67,9 @@ public class TronGame extends Core{
                 w.addKeyListener(keyboardController2);
                 w.addKeyListener(keyboardController3); 
 		w.addMouseListener(mouseController);
-
+                
+                sr = new ScreenResolution(sm.getWidth(), sm.getHeight());
+                
                 for (Player player : players) {
                     player.sr = sr;
                 }
@@ -79,6 +80,7 @@ public class TronGame extends Core{
     @Override
     public void draw(Graphics2D g) {
         
+        super.draw(g);
         for(Player player : players){
 
             for (PointPosition pointPosition : player.pointPositions) {
