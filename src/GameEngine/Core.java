@@ -38,8 +38,6 @@ public abstract class Core {
 		sm.setFullScreen(dm);
 		Window w = sm.getFullScreenWindow();
 		w.setFont(new Font("Arial",Font.PLAIN,20));
-		w.setBackground(Color.BLACK);
-		w.setForeground(Color.RED);
 		w.setCursor(w.getToolkit().createCustomCursor(new BufferedImage(3, 3, BufferedImage.TYPE_INT_ARGB), new Point(0, 0),"null")); 
 		running = true;
                 
@@ -63,6 +61,9 @@ public abstract class Core {
 	
 	public abstract void update();
 	
-	public abstract void draw(Graphics2D g);
+	public void draw(Graphics2D g){
+            g.setColor(Color.BLACK);
+            g.fillRect(0, 0, sm.getWidth(), sm.getHeight());
+        };
 	
 }
