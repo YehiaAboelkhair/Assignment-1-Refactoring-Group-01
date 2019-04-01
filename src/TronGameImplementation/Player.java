@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package TronGameEngine;
+package TronGameImplementation;
 
-import Model.PointPosition;
-import Model.ScreenManager;
-import Model.Direction;
-import Model.Direction.Directions;
-import Model.GameObject;
+import GameEngine.PointPosition;
+import GameEngine.ScreenManager;
+import GameEngine.Direction;
+import GameEngine.Direction.Directions;
+import GameEngine.GameObject;
 import java.awt.Color;
 import java.util.ArrayList;
 
@@ -28,7 +28,7 @@ public class Player extends GameObject{
         
         pointPositions = new ArrayList();
 
-        this.sm = sm;
+        this.sr = sr;
     }
 
     public void move() {
@@ -39,12 +39,12 @@ public class Player extends GameObject{
             if (p.yPosition > 0) {
                 p.yPosition -= moveAmount;
             } else {
-                p.yPosition = sm.getHeight();
+                p.yPosition = sr.getHeight();
             }
         }
         
         else if (currentDirection == Directions.DOWN) {
-            if (p.yPosition < sm.getHeight()) {
+            if (p.yPosition < sr.getHeight()) {
                 p.yPosition += moveAmount;
             } else {
                 p.yPosition = 0;
@@ -52,7 +52,7 @@ public class Player extends GameObject{
         }
         
         else if (currentDirection == Directions.RIGHT) {
-            if (p.xPosition < sm.getWidth()) {
+            if (p.xPosition < sr.getWidth()) {
                 p.xPosition += moveAmount;
             } else {
                 p.xPosition = 0;
@@ -63,7 +63,7 @@ public class Player extends GameObject{
             if (p.xPosition > 0) {
                 p.xPosition -= moveAmount;
             } else {
-                p.xPosition = sm.getWidth();
+                p.xPosition = sr.getWidth();
             }
         }
 

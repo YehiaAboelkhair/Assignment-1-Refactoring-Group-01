@@ -3,18 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Model;
+package TronGameImplementation;
 
 /**
  *
  * @author Mohamed
  */
-public class Direction {
- 
-    public enum Directions { 
-
-        LEFT, UP, DOWN, RIGHT
-    };
-
+public class TronPlay {
+    
+    public static void main(String[] args) {
+        TronGame tg= new TronGame();
+        tg.run();
+    }
     
 }

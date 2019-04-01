@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package SnakeGameEngine;
+package SnakeGameImplementation;
 
-import Model.Direction;
-import Model.GameObject;
-import Model.PointPosition;
+import GameEngine.Direction;
+import GameEngine.GameObject;
+import GameEngine.PointPosition;
 import java.awt.Color;
 import java.util.ArrayList;
 
@@ -51,12 +51,12 @@ public class Snake extends GameObject{
             if (p.yPosition > 0) {
                 p.yPosition -= moveAmount;
             } else {
-                p.yPosition = sm.getHeight();
+                p.yPosition = sr.getHeight();
             }
         }
         
         else if (currentDirection == Direction.Directions.DOWN) {
-            if (p.yPosition < sm.getHeight()) {
+            if (p.yPosition < sr.getHeight()) {
                 p.yPosition += moveAmount;
             } else {
                 p.yPosition = 0;
@@ -64,7 +64,7 @@ public class Snake extends GameObject{
         }
         
         else if (currentDirection == Direction.Directions.RIGHT) {
-            if (p.xPosition < sm.getWidth()) {
+            if (p.xPosition < sr.getWidth()) {
                 p.xPosition += moveAmount;
             } else {
                 p.xPosition = 0;
@@ -75,7 +75,7 @@ public class Snake extends GameObject{
             if (p.xPosition > 0) {
                 p.xPosition -= moveAmount;
             } else {
-                p.xPosition = sm.getWidth();
+                p.xPosition = sr.getWidth();
             }
         }
         

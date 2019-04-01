@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package SnakeGameEngine;
+package SnakeGameImplementation;
 
-import Interfaces.ICollisionDetector;
-import TronGameEngine.Player;
+import GameEngine.ICollisionDetector;
+import TronGameImplementation.Player;
 
 /**
  *

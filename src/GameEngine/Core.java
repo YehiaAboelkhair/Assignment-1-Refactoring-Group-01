@@ -1,4 +1,4 @@
-package Model;
+package GameEngine;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -38,10 +38,11 @@ public abstract class Core {
 		sm.setFullScreen(dm);
 		Window w = sm.getFullScreenWindow();
 		w.setFont(new Font("Arial",Font.PLAIN,20));
-		w.setBackground(Color.WHITE);
+		w.setBackground(Color.BLACK);
 		w.setForeground(Color.RED);
 		w.setCursor(w.getToolkit().createCustomCursor(new BufferedImage(3, 3, BufferedImage.TYPE_INT_ARGB), new Point(0, 0),"null")); 
 		running = true;
+                
 	}
 	
 	public void gameLoop(){

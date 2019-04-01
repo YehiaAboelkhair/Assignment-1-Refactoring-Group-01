@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package SnakeGameEngine;
+package SnakeGameImplementation;
 
-import Model.PointPosition;
-import Model.ScreenManager;
+import GameEngine.PointPosition;
+import GameEngine.ScreenManager;
+import GameEngine.ScreenResolution;
 import java.awt.Color;
 import java.util.Random;
 
@@ -16,7 +17,7 @@ import java.util.Random;
  */
 public class Food {
 
-    public ScreenManager sm;
+    public ScreenResolution sr;
     public PointPosition pointPosition;
     public Color color;
     int amount;
@@ -31,8 +32,8 @@ public class Food {
         
         Random rand = new Random(); 
 
-        pointPosition.xPosition = rand.nextInt(sm.getWidth());
-            pointPosition.yPosition = rand.nextInt(sm.getHeight());
+        pointPosition.xPosition = rand.nextInt(sr.getWidth());
+            pointPosition.yPosition = rand.nextInt(sr.getHeight());
         
 
         return pointPosition; 

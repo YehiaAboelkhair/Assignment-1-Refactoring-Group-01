@@ -3,13 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package SnakeGameEngine;
+package SnakeGameImplementation;
 
-import Model.Core;
-import Model.Direction;
-import Model.KeyboardController;
-import Model.MouseController;
-import Model.PointPosition;
+import GameEngine.Core;
+import GameEngine.Direction;
+import GameEngine.KeyboardController;
+import GameEngine.MouseController;
+import GameEngine.PointPosition;
+import GameEngine.ScreenResolution;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Window;
@@ -30,6 +31,8 @@ public class SnakeGame extends Core {
     MouseController mouseControllor;
     SnakeCollisionDetector snakecollisionDetector;
     
+    ScreenResolution sr;
+    
     public SnakeGame(){
     
         snake = new Snake(new PointPosition(0, 0), Color.GREEN, Color.RED, Direction.Directions.RIGHT);
@@ -39,7 +42,7 @@ public class SnakeGame extends Core {
         mouseControllor = new MouseController(snake);
         
         snakecollisionDetector = new SnakeCollisionDetector(snake, food);
-        
+        sr = new ScreenResolution(sm.getWidth(), sm.getHeight());
     }
     
     public void init(){
@@ -48,8 +51,8 @@ public class SnakeGame extends Core {
 		Window w = sm.getFullScreenWindow();
 		w.addKeyListener(keyboardController1);
 
-                snake.sm = sm;
-                food.sm = sm;
+                snake.sr = sr;
+                food.sr = sr;
     }
     
     
@@ -57,11 +60,8 @@ public class SnakeGame extends Core {
     
     @Override
     public void draw(Graphics2D g) {
-        
-        g.setColor(Color.BLACK);
-        g.fillRect(0, 0, sm.getWidth(), sm.getHeight());
-        
-           for (PointPosition pointPosition : snake.pointPositions) {
+
+        for (PointPosition pointPosition : snake.pointPositions) {
                 g.setColor(snake.color);
                 g.fillRect(pointPosition.xPosition, pointPosition.yPosition, 10, 10);
                 
@@ -77,8 +77,7 @@ public class SnakeGame extends Core {
             g.setColor(food.color);
             g.fillRect(pointPosition.xPosition, pointPosition.yPosition, 20, 20);
             
-        }else{
-            
+        }else{    
             g.setColor(food.color);
             g.fillRect(food.pointPosition.xPosition, food.pointPosition.yPosition, 20, 20);
         }
@@ -93,7 +92,6 @@ public class SnakeGame extends Core {
         if(snakecollisionDetector.isThereObjectCollision()){
             System.exit(0);
         }else{
-          
                 snake.pointPositions.add(snake.p);
         }
        

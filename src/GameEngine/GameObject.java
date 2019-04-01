@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Model;
+package GameEngine;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ public abstract class GameObject {
     public PointPosition p;
     public ArrayList<PointPosition> pointPositions; 
     
-    public ScreenManager sm;
+    public ScreenResolution sr;
     
     
     public abstract void move();

@@ -1,9 +1,10 @@
-package TronGameEngine;
-import Model.PointPosition;
-import Model.Core;
-import Model.MouseController;
-import Model.KeyboardController;
-import Model.Direction;
+package TronGameImplementation;
+import GameEngine.PointPosition;
+import GameEngine.Core;
+import GameEngine.MouseController;
+import GameEngine.KeyboardController;
+import GameEngine.Direction;
+import GameEngine.ScreenResolution;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Window;
@@ -29,6 +30,7 @@ public class TronGame extends Core{
 
     TronCollisionDetector collisionDetector;
     ArrayList<Player> players;
+    ScreenResolution sr; 
     
     public TronGame(){
     
@@ -52,9 +54,8 @@ public class TronGame extends Core{
         players.add(player2);
         //players.add(player3);
        
-        
         collisionDetector = new TronCollisionDetector(players);
-
+        sr = new ScreenResolution(sm.getWidth(), sm.getHeight());
 
     }
     
@@ -69,7 +70,7 @@ public class TronGame extends Core{
 		w.addMouseListener(mouseController);
 
                 for (Player player : players) {
-                    player.sm = sm;
+                    player.sr = sr;
                 }
                 
                 
@@ -77,8 +78,6 @@ public class TronGame extends Core{
     
     @Override
     public void draw(Graphics2D g) {
-        g.setColor(Color.BLACK);
-        g.fillRect(0, 0, sm.getWidth(), sm.getHeight());
         
         for(Player player : players){
 
@@ -95,7 +94,6 @@ public class TronGame extends Core{
         for(Player player : players){
             player.move();
         }
-        
         
         if(collisionDetector.isThereObjectCollision()){
  

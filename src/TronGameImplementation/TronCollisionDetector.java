@@ -1,7 +1,7 @@
 
-package TronGameEngine;
+package TronGameImplementation;
 
-import Interfaces.ICollisionDetector;
+import GameEngine.ICollisionDetector;
 import java.util.ArrayList;
 
 /**
