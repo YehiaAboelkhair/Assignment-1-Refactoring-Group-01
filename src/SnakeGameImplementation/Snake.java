@@ -9,7 +9,7 @@ import GameEngine.Boundary;
 import GameEngine.Direction;
 import GameEngine.MovedGameObject;
 import GameEngine.Position;
-import TronGameImplementation.Path;
+import GameEngine.Path;
 import java.awt.Color;
 
 /**

@@ -9,6 +9,8 @@ import GameEngine.Boundary;
 import GameEngine.Position;
 import GameEngine.Direction;
 import GameEngine.MovedGameObject;
+import GameEngine.Path;
+
 import java.awt.Color;
 
 /**
