@@ -5,7 +5,9 @@
  */
 package SnakeGameImplementation;
 
-import GameEngine.PointPosition;
+import GameEngine.Boundary;
+import GameEngine.GameObject;
+import GameEngine.Position;
 import GameEngine.ScreenManager;
 import GameEngine.ScreenResolution;
 import java.awt.Color;
@@ -15,28 +17,25 @@ import java.util.Random;
  *
  * @author Mohamed
  */
-public class Food {
+public class Food extends GameObject{
 
-    public ScreenResolution sr;
-    public PointPosition pointPosition;
-    public Color color;
-    int amount;
-    public Food(PointPosition pointPosition, Color color, int constantAmount){
-        this.pointPosition = pointPosition;
+    private int amount;
+    public Food(Position point, Color color){
+        this.position = point;
         this.color = color;
-        this.amount = constantAmount;
+        this.amount = 5;
     }
 
     
-    public PointPosition GenerateFood(){
+    public Position getFoodPosition(Boundary bounds){
         
         Random rand = new Random(); 
+        do{
+            position.setX(rand.nextInt(bounds.getWidth()));
+            position.setY(rand.nextInt(bounds.getWidth()));
+            
+        }while((position.getX() % amount != 0) && (position.getY() % amount != 0));
+        return position; 
+    }    
 
-        pointPosition.xPosition = rand.nextInt(sr.getWidth());
-            pointPosition.yPosition = rand.nextInt(sr.getHeight());
-        
-
-        return pointPosition; 
-    }
-    
 }

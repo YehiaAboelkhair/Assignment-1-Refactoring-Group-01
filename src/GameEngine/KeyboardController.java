@@ -13,22 +13,18 @@ import java.awt.event.KeyListener;
  *
  * @author Mohamed
  */
-public class KeyboardController extends Direction implements KeyListener{
+public class KeyboardController implements KeyListener{
  
-    int upKey;
-    int downKey;
-    int rightKey;
-    int leftKey;
-    
-    GameObject object;
+    private int upKey, downKey, rightKey, leftKey;
 
-    public KeyboardController(GameObject object, int upKey, int downKey, int rightKey, int leftKey) {
+    private MovedGameObject object;
+
+    public KeyboardController(MovedGameObject object, int upKey, int downKey, int rightKey, int leftKey) {
         
         this.upKey = upKey;
         this.downKey = downKey;
         this.rightKey = rightKey;
         this.leftKey = leftKey;
-        
         this.object = object;
     }
 
@@ -44,20 +40,20 @@ public class KeyboardController extends Direction implements KeyListener{
     public void keyPressed(KeyEvent e) {
         
         	if (e.getKeyCode() == upKey) {
-			if (object.currentDirection != Directions.DOWN){
-                            object.currentDirection = Directions.UP;
+			if (object.direction != Direction.DOWN){
+                            object.direction = Direction.UP;
 			}
 		} else if (e.getKeyCode() == downKey) {
-			if (object.currentDirection != Directions.UP){
-				object.currentDirection = Directions.DOWN;
+			if (object.direction != Direction.UP){
+				object.direction = Direction.DOWN;
 				}
 		} else if (e.getKeyCode() == rightKey) {
-			if (object.currentDirection != Directions.LEFT){
-				object.currentDirection = Directions.RIGHT;
+			if (object.direction != Direction.LEFT){
+				object.direction = Direction.RIGHT;
 				}
 		} else if (e.getKeyCode() == leftKey) {
-			if (object.currentDirection != Directions.RIGHT){
-				object.currentDirection = Directions.LEFT;
+			if (object.direction != Direction.RIGHT){
+				object.direction = Direction.LEFT;
 				}
 		}
         

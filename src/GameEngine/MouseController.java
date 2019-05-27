@@ -12,48 +12,46 @@ import java.awt.event.MouseListener;
  *
  * @author Mohamed
  */
-public class MouseController extends Direction implements MouseListener{
+public class MouseController implements MouseListener{
 
-    GameObject object;
+    private MovedGameObject object;
 
-    public MouseController(GameObject object) {
+    public MouseController(MovedGameObject object) {
         
         this.object = object;
     }
-    
-    
-    
+        
     @Override
     public void mouseClicked(MouseEvent e) {
         
         if(e.getButton()== MouseEvent.BUTTON1){
             
-            if (object.currentDirection == Directions.DOWN){
-                            object.currentDirection = Directions.RIGHT;
+            if (object.direction == Direction.DOWN){
+                            object.direction = Direction.RIGHT;
             }
-            else if (object.currentDirection == Directions.UP){
-				object.currentDirection = Directions.LEFT;
+            else if (object.direction == Direction.UP){
+				object.direction = Direction.LEFT;
             }
-            else if (object.currentDirection == Directions.LEFT){
-				object.currentDirection = Directions.DOWN;
+            else if (object.direction == Direction.LEFT){
+				object.direction = Direction.DOWN;
             }
-            else if (object.currentDirection == Directions.RIGHT){
-				object.currentDirection = Directions.UP;
+            else if (object.direction == Direction.RIGHT){
+				object.direction = Direction.UP;
             }
         }
         else if(e.getButton() == MouseEvent.BUTTON3){
             
-            if (object.currentDirection == Directions.DOWN){
-                            object.currentDirection = Directions.LEFT;
+            if (object.direction == Direction.DOWN){
+                            object.direction = Direction.LEFT;
             }
-            else if (object.currentDirection == Directions.UP){
-				object.currentDirection = Directions.RIGHT;
+            else if (object.direction == Direction.UP){
+				object.direction = Direction.RIGHT;
             }
-            else if (object.currentDirection == Directions.LEFT){
-				object.currentDirection = Directions.UP;
+            else if (object.direction == Direction.LEFT){
+				object.direction = Direction.UP;
             }
-            else if (object.currentDirection == Directions.RIGHT){
-				object.currentDirection = Directions.DOWN;
+            else if (object.direction == Direction.RIGHT){
+				object.direction = Direction.DOWN;
             }
         }
         

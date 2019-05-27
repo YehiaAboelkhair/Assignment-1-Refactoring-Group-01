@@ -9,12 +9,9 @@ package GameEngine;
  *
  * @author Mohamed
  */
-public class Direction {
+
  
-    public enum Directions { 
+    public enum Direction { 
 
         LEFT, UP, DOWN, RIGHT
     };
-
-    
-}

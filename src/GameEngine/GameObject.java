@@ -14,18 +14,16 @@ import java.util.ArrayList;
  */
 public abstract class GameObject {
     
-    public Direction.Directions currentDirection;
-    public Color color;
-    public int moveAmount;
+    protected Color color;
+    protected Position position;
 
-    public PointPosition p;
-    public ArrayList<PointPosition> pointPositions; 
-    
-    public ScreenResolution sr;
-    
-    
-    public abstract void move();
-    
-    
-    
+    public void setColor(Color color){
+        this.color = color;
+    }
+    public Color getColor(){
+        return this.color;
+    }
+    public Position getPosition(){
+        return this.position;
+    }
 }

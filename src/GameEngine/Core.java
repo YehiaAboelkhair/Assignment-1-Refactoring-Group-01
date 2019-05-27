@@ -5,18 +5,7 @@ import java.awt.image.BufferedImage;
 
 public abstract class Core {
 
-	private static final DisplayMode modes[] = 
-		{
-		new DisplayMode(1366,768,32,0),
-		new DisplayMode(1680,1050,32,0),
-		new DisplayMode(800,600,32,0),
-		new DisplayMode(800,600,24,0),
-		new DisplayMode(800,600,16,0),
-		new DisplayMode(640,480,32,0),
-		new DisplayMode(640,480,24,0),
-		new DisplayMode(640,480,16,0),
-		};
-	private boolean running;
+        private boolean running;
 	protected ScreenManager sm;
 	
 	public void stop(){
@@ -34,7 +23,7 @@ public abstract class Core {
 	
 	public void init(){
 		sm = new ScreenManager();
-		DisplayMode dm = sm.findFirstCompatibaleMode(modes);
+		DisplayMode dm = sm.findFirstCompatibaleMode();
 		sm.setFullScreen(dm);
 		Window w = sm.getFullScreenWindow();
 		w.setFont(new Font("Arial",Font.PLAIN,20));
@@ -64,6 +53,6 @@ public abstract class Core {
 	public void draw(Graphics2D g){
             g.setColor(Color.BLACK);
             g.fillRect(0, 0, sm.getWidth(), sm.getHeight());
-        };
+        }
 	
 }

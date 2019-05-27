@@ -5,11 +5,12 @@
  */
 package SnakeGameImplementation;
 
+import GameEngine.Boundary;
 import GameEngine.Core;
 import GameEngine.Direction;
 import GameEngine.KeyboardController;
 import GameEngine.MouseController;
-import GameEngine.PointPosition;
+import GameEngine.Position;
 import GameEngine.ScreenResolution;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -23,20 +24,21 @@ import java.awt.event.KeyEvent;
 public class SnakeGame extends Core {
 
     
-    PointPosition pointPosition;
-    Snake snake;
-    Food food;
+    Position pointPosition;
+    private Snake snake;
+    private Food food;
    
-    KeyboardController keyboardController1;
-    MouseController mouseControllor;
-    SnakeCollisionDetector snakecollisionDetector;
+    private KeyboardController keyboardController1;
+    private MouseController mouseControllor;
+    private SnakeCollisionDetector snakecollisionDetector;
     
-    ScreenResolution resolution;
+    private ScreenResolution resolution;
+    private Boundary bounds;
     
     public SnakeGame(){
     
-        snake = new Snake(new PointPosition(0, 0), Color.GREEN, Color.RED, Direction.Directions.RIGHT);
-        food = new Food(new PointPosition(100, 100), Color.BLUE, snake.moveAmount);
+        snake = new Snake(new Position(0, 0), Color.GREEN, Color.RED, Direction.RIGHT);
+        food = new Food(new Position(100, 100), Color.BLUE);
 
         keyboardController1 = new KeyboardController(snake, KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT);
         mouseControllor = new MouseController(snake);
@@ -50,10 +52,7 @@ public class SnakeGame extends Core {
 		Window w = sm.getFullScreenWindow();
 		w.addKeyListener(keyboardController1);
 
-                resolution = new ScreenResolution(sm.getWidth(), sm.getHeight());
-
-                snake.sr = resolution;
-                food.sr = resolution;
+                bounds = new Boundary(sm.getWidth(), sm.getHeight());  
     }
     
     
@@ -64,40 +63,44 @@ public class SnakeGame extends Core {
 
         super.draw(g);
         
-        for (PointPosition pointPosition : snake.pointPositions) {
-                g.setColor(snake.color);
-                g.fillRect(pointPosition.xPosition, pointPosition.yPosition, 10, 10);
-                
+        for (Position point : snake.getPath().get()) {
+                g.setColor(snake.getColor());
+                g.fillRect(point.getX(), point.getY(), 10, 10);     
             }
            
-                g.setColor(snake.headColor);
-                g.fillRect(snake.p.xPosition, snake.p.yPosition, 10, 10);
+                g.setColor(snake.getHeadColor());
+                g.fillRect(snake.getPosition().getX(), snake.getPosition().getY(), 10, 10);
            
            
         if(snakecollisionDetector.isThereFoodCollision()){
-            snake.haveEaten = true;
-            PointPosition pointPosition = food.GenerateFood();
-            g.setColor(food.color);
-            g.fillRect(pointPosition.xPosition, pointPosition.yPosition, 20, 20);
-            
-        }else{    
-            g.setColor(food.color);
-            g.fillRect(food.pointPosition.xPosition, food.pointPosition.yPosition, 20, 20);
-        }
-        
+            snake.setHaveEaten(true);
+            food.getFoodPosition(bounds);
+        }           
+
+        g.setColor(food.getColor());
+        g.fillRect(food.getPosition().getX(), food.getPosition().getY(), 10, 10);
+ 
     }
 
     @Override
     public void update() {
        
-            snake.move();
+            snake.move(bounds);
             
         if(snakecollisionDetector.isThereObjectCollision()){
             System.exit(0);
         }else{
-                snake.pointPositions.add(snake.p);
+                addSnakeValidPoints();
         }
        
+    }
+
+    public void addSnakeValidPoints() {
+        snake.getPath().add(snake.getPosition());
+        if(snake.getHaveEaten())
+            snake.setHaveEaten(false);
+        else
+            snake.getPath().delete(0);
     }
 
         

@@ -5,86 +5,96 @@
  */
 package SnakeGameImplementation;
 
+import GameEngine.Boundary;
 import GameEngine.Direction;
-import GameEngine.GameObject;
-import GameEngine.PointPosition;
+import GameEngine.MovedGameObject;
+import GameEngine.Position;
+import TronGameImplementation.Path;
 import java.awt.Color;
-import java.util.ArrayList;
 
 /**
  *
  * @author Mohamed
  */
-public class Snake extends GameObject{
+public class Snake extends MovedGameObject{
     
-    boolean haveEaten;
-    Color headColor;
-    public Snake(PointPosition point, Color snakeColor, Color snakeHeadColor, Direction.Directions initialDirection) {
+    private boolean haveEaten;
+    private Color headColor;
+    private Path path;
+    public Snake(Position point, Color snakeColor, Color snakeHeadColor, Direction initialDirection) {
 
-        this.p = point;
+        this.position = point;
         this.color = snakeColor;
         this.headColor = snakeHeadColor;
-        this.currentDirection = initialDirection;
-        moveAmount = 10;
+        this.direction = initialDirection;
+        moveAmount = 5;
         haveEaten = false;
-        pointPositions = new ArrayList();
-        startSnakePoints(point);
+        this.path = new Path();
+        startSnakePoints();
     }
-
-    public void startSnakePoints(PointPosition point){
     
-        int xPosition = 0;
-          for (int i = 0; i < 10; i++) {
-           pointPositions.add(new PointPosition(point.xPosition + xPosition , point.yPosition));
-           xPosition = pointPositions.get(i).xPosition; 
-        }
+    public void startSnakePoints(){
+        int x = 5;
+        Position point = new Position(position.getX(), position.getY());
+        for (int i = 0; i < 10; i++) {
+           path.add(point);
+           point = new Position(point.getX() + x , point.getY());
+        } 
+        this.position = point;
+    }
+    public void move(Boundary bounds) {
         
-           
- }
-    
-    
-    public void move() {
-        
-        p = new PointPosition(p.xPosition, p.yPosition);
+        position = new Position(position.getX(), position.getY());
                 
-        if (currentDirection == Direction.Directions.UP) {
-            if (p.yPosition > 0) {
-                p.yPosition -= moveAmount;
+         if (this.direction == Direction.UP) {
+            if (position.getY() > 0) {
+                position.setY(position.getY() - moveAmount);
             } else {
-                p.yPosition = sr.getHeight();
+                position.setY(bounds.getHeight());
             }
         }
         
-        else if (currentDirection == Direction.Directions.DOWN) {
-            if (p.yPosition < sr.getHeight()) {
-                p.yPosition += moveAmount;
+        else if (this.direction == Direction.DOWN) {
+            if (position.getY() < bounds.getHeight()) {
+                position.setY(position.getY() + moveAmount);
             } else {
-                p.yPosition = 0;
+                position.setY(0);
             }
         }
         
-        else if (currentDirection == Direction.Directions.RIGHT) {
-            if (p.xPosition < sr.getWidth()) {
-                p.xPosition += moveAmount;
+        else if (direction == Direction.RIGHT) {
+            if (position.getX() < bounds.getWidth()) {
+                position.setX(position.getX() + moveAmount);
             } else {
-                p.xPosition = 0;
+                position.setX(0);
             }
         }
         
-        else if (currentDirection == Direction.Directions.LEFT) {
-            if (p.xPosition > 0) {
-                p.xPosition -= moveAmount;
+        else if (direction == Direction.LEFT) {
+            if (position.getX() > 0) {
+                position.setX(position.getX() - moveAmount);
             } else {
-                p.xPosition = sr.getWidth();
+                position.setX(bounds.getWidth());
             }
         }
         
-        if(!haveEaten){
-            pointPositions.remove(0);
-        }
-        haveEaten = false;
-
     }
-   
+
+    public Path getPath() {
+        return path;
+    }
+    
+    public Color getHeadColor()
+    {
+        return this.headColor;
+    }
+    
+    public void setHaveEaten(boolean haveEaten){
+        this.haveEaten = haveEaten;
+    }
+    
+    public boolean getHaveEaten(){
+        return haveEaten;
+    }
     
 }

@@ -1,10 +1,10 @@
 package TronGameImplementation;
-import GameEngine.PointPosition;
+import GameEngine.Boundary;
+import GameEngine.Position;
 import GameEngine.Core;
 import GameEngine.MouseController;
 import GameEngine.KeyboardController;
 import GameEngine.Direction;
-import GameEngine.ScreenResolution;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Window;
@@ -18,46 +18,30 @@ import java.util.ArrayList;
 public class TronGame extends Core{
 
     
-    Player player1;
-    Player player2;
-    Player player3;
+    private Player player1;
+    private Player player2;
+    private Player player3;
     
-    KeyboardController keyboardController1;
-    KeyboardController keyboardController2;
-    KeyboardController keyboardController3;
+    private KeyboardController keyboardController1;
+    private KeyboardController keyboardController2;
+    private KeyboardController keyboardController3;
 
-    MouseController  mouseController;
+    private MouseController  mouseController;
 
-    TronCollisionDetector collisionDetector;
-    ArrayList<Player> players;
-    ScreenResolution sr; 
+    private TronCollisionDetector collisionDetector;
+    private ArrayList<Player> players;
+    private Boundary bounds;
     
     public TronGame(){
     
-        
-        
-        player1 = new Player(new PointPosition(0, 0), Color.GREEN, Direction.Directions.RIGHT);
-        keyboardController1 = new KeyboardController(player1, KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT);
-
-                
-        player2 = new Player(new PointPosition(1366, 600), Color.RED, Direction.Directions.LEFT);
-        keyboardController2 = new KeyboardController(player2, KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_D, KeyEvent.VK_A);
-        
-        player3 = new Player(new PointPosition(0, 400), Color.YELLOW, Direction.Directions.RIGHT);
-        keyboardController3 = new KeyboardController(player3, KeyEvent.VK_NUMPAD8, KeyEvent.VK_NUMPAD2, KeyEvent.VK_NUMPAD6, KeyEvent.VK_NUMPAD4);
-        
-        
-        mouseController = new MouseController(player2);
-        
+        createPlayers();
         players = new ArrayList<>();
-        players.add(player1);
-        players.add(player2);
-        players.add(player3);
-       
+        addPlayersToGame(players, player1);
+        addPlayersToGame(players, player2);
+//        addPlayersToGame(players, player3);        
         collisionDetector = new TronCollisionDetector(players);
 
     }
-    
     
         public void init(){
         
@@ -67,14 +51,8 @@ public class TronGame extends Core{
                 w.addKeyListener(keyboardController2);
                 w.addKeyListener(keyboardController3); 
 		w.addMouseListener(mouseController);
-                
-                sr = new ScreenResolution(sm.getWidth(), sm.getHeight());
-                
-                for (Player player : players) {
-                    player.sr = sr;
-                }
-                
-                
+
+                bounds = new Boundary(sm.getWidth(), sm.getHeight());                
     }
     
     @Override
@@ -83,9 +61,9 @@ public class TronGame extends Core{
         super.draw(g);
         for(Player player : players){
 
-            for (PointPosition pointPosition : player.pointPositions) {
-                g.setColor(player.color);
-                g.fillRect(pointPosition.xPosition, pointPosition.yPosition, 10, 10); 
+            for (Position point: player.getPath().get()) {
+                g.setColor(player.getColor());
+                g.fillRect(point.getX(), point.getY(), 10, 10); 
             }
             
         }
@@ -93,22 +71,52 @@ public class TronGame extends Core{
 
     @Override
     public void update() {
-        for(Player player : players){
-            player.move();
-        }
-        
-        if(collisionDetector.isThereObjectCollision()){
- 
-            System.exit(0);
-        }else{
-          
-            for(Player player : players){
-                player.pointPositions.add(player.p);
-                
-            }
+        movePlayers();
+        if(collisionDetector.isThereObjectCollision())
+            exit();
+        else
+            addPlayersValidMovementsToPath();
+    }
 
-            
+    
+    public void addPlayersValidMovementsToPath() {
+        for(Player player : players){
+            player.getPath().add(player.getPosition());
         }
     }
+
+    public void exit() {
+        System.exit(0);
+    }
+
+    public void movePlayers() {
+        for(Player player : players){
+            player.move(bounds);
+        }
+    }
+
+
+
+    public void createPlayers() {
+        player1 = new Player(new Position(40, 40), Color.GREEN, Direction.RIGHT);
+        keyboardController1 = new KeyboardController(player1, KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT);
+        
+        
+        player2 = new Player(new Position(600, 400), Color.RED, Direction.LEFT);
+        keyboardController2 = new KeyboardController(player2, KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_D, KeyEvent.VK_A);
+        
+//      player3 = new Player(new Position(0, 400), Color.YELLOW, Direction.RIGHT);
+//      keyboardController3 = new KeyboardController(player3, KeyEvent.VK_NUMPAD8, KeyEvent.VK_NUMPAD2, KeyEvent.VK_NUMPAD6, KeyEvent.VK_NUMPAD4);
+//        
+        
+//        mouseController = new MouseController(player3);
     
+    }
+
+    public void addPlayersToGame(ArrayList<Player> players, Player player) {
+        
+        players.add(player);
+
+    }
+
 }

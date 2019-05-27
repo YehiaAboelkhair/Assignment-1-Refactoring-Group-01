@@ -6,7 +6,6 @@
 package SnakeGameImplementation;
 
 import GameEngine.ICollisionDetector;
-import TronGameImplementation.Player;
 
 /**
  *
@@ -24,45 +23,17 @@ public class SnakeCollisionDetector implements ICollisionDetector{
     }
     
      public boolean isThereObjectCollision(){
-        
-                for (int i = 0; i < snake.pointPositions.size(); i++) {
-                
-                    if(
-                            (snake.p.xPosition == snake.pointPositions.get(i).xPosition) 
-                         && (snake.p.yPosition == snake.pointPositions.get(i).yPosition)
-                      )
-                        
-                        return true;
-                }
-                
+            for (int i = 0; i < snake.getPath().size(); i++) {
+                if(snake.getPosition().equals(snake.getPath().get(i))) 
+                    return true;
+            }
         return false;
     }
     
     public boolean isThereFoodCollision()
     {
-        for(int i = 0; i < 15 ; i++){
-            for(int j = 0; j < 15 ; j ++){
-        
-        if(            
-                            ((snake.p.xPosition == food.pointPosition.xPosition + i) 
-                         && (snake.p.yPosition == food.pointPosition.yPosition + j))
-                
-                         || ((snake.p.xPosition == food.pointPosition.xPosition - i) 
-                         && (snake.p.yPosition == food.pointPosition.yPosition - j))
-                
-                
-                         || ((snake.p.xPosition == food.pointPosition.xPosition + i) 
-                         && (snake.p.yPosition == food.pointPosition.yPosition - j))
-                
-                
-                         || ((snake.p.xPosition == food.pointPosition.xPosition - i) 
-                         && (snake.p.yPosition == food.pointPosition.yPosition + j))
-          )
-                        
-                        return true;
-            }
-}
-    
+            if(snake.getPosition().equals(food.getPosition()))
+                return true;
         return false;
-}
+    }
 }

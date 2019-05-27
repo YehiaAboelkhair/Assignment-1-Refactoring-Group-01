@@ -10,50 +10,36 @@ import java.util.ArrayList;
  */
 public class TronCollisionDetector implements ICollisionDetector{
     
-    ArrayList<Player> players;
+    private ArrayList<Player> players;
 
     public TronCollisionDetector(ArrayList<Player> players) {
         
         this.players = players;
     }
     
-    
+    @Override
     public boolean isThereObjectCollision(){
         
-        for (Player outerPlayer : players) {
-            for (Player innerPlayer : players) {
+        for (Player outer : players) {
+            for (Player inner : players) {
                 
-                for (int counter = 0; counter < innerPlayer.pointPositions.size(); counter++) {
-                
-                    for(int i = 0; i < 5 ; i++){
-                        for(int j = 0; j < 5 ; j ++){
-                    
-                    if(
-                            ((outerPlayer.p.xPosition == innerPlayer.pointPositions.get(counter).xPosition + i) 
-                         && (outerPlayer.p.yPosition == innerPlayer.pointPositions.get(counter).yPosition + j))
-                         || ((outerPlayer.p.xPosition == innerPlayer.pointPositions.get(counter).xPosition - i) 
-                         && (outerPlayer.p.yPosition == innerPlayer.pointPositions.get(counter).yPosition - j))                            
-                         || ((outerPlayer.p.xPosition == innerPlayer.pointPositions.get(counter).xPosition + i) 
-                         && (outerPlayer.p.yPosition == innerPlayer.pointPositions.get(counter).yPosition - j))
-                         || ((outerPlayer.p.xPosition == innerPlayer.pointPositions.get(counter).xPosition - i) 
-                         && (outerPlayer.p.yPosition == innerPlayer.pointPositions.get(counter).yPosition + j))
-                                  
-                            
-                      )
-                        
-                        return true;
-                        }
-                    }
+                for (int counter = 0; counter < inner.getPath().size(); counter++) {
+                      
+                    if(outer.getPosition().equals(inner.getPath().get(counter)))
+                        return true;      
                 }
-                    
             }
             
         }
-        
         return false;
     }
     
-    
 }
+//
+//if(outer.getPosition().getX() == inner.getPath().get(counter).getX()
+//        && outer.getPosition().getY() == inner.getPath().get(counter).getY())
+//    return true;      
+
+
                            
  
