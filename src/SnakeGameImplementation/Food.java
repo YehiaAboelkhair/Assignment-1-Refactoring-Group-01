@@ -9,7 +9,6 @@ import GameEngine.Boundary;
 import GameEngine.GameObject;
 import GameEngine.Position;
 import GameEngine.ScreenManager;
-import GameEngine.ScreenResolution;
 import java.awt.Color;
 import java.util.Random;
 

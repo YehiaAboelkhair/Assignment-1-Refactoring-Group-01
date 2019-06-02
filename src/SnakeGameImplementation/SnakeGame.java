@@ -11,7 +11,6 @@ import GameEngine.Direction;
 import GameEngine.KeyboardController;
 import GameEngine.MouseController;
 import GameEngine.Position;
-import GameEngine.ScreenResolution;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Window;
@@ -27,12 +26,9 @@ public class SnakeGame extends Core {
     Position pointPosition;
     private Snake snake;
     private Food food;
-   
     private KeyboardController keyboardController1;
     private MouseController mouseControllor;
     private SnakeCollisionDetector snakecollisionDetector;
-    
-    private ScreenResolution resolution;
     private Boundary bounds;
     
     public SnakeGame(){
