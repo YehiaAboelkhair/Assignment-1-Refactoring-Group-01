@@ -30,10 +30,10 @@ public class Snake extends MovedGameObject{
         moveAmount = 5;
         haveEaten = false;
         this.path = new Path();
-        startSnakePoints();
+        buildSnake();
     }
     
-    public void startSnakePoints(){
+    public void buildSnake(){
         int x = 5;
         Position point = new Position(position.getX(), position.getY());
         for (int i = 0; i < 10; i++) {
